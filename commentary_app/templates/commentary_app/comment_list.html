@@ -1,0 +1,20 @@
+<!-- comments/comment_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Comments</h1>
+
+  {% if comments %}
+    <ul>
+      {% for comment in comments %}
+        <li>
+          <p><strong>{{ comment.username }}</strong> - {{ comment.created_at }}</p>
+          <p>{{ comment.text }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+{% endblock %}

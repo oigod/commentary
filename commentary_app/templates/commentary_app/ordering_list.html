@@ -1,0 +1,3 @@
+<a href="?sort=username&dir={{ direction }}&page={{page}}" class="btn btn-outline-secondary">Username {% if request.GET.sort == 'username' %}{% if request.GET.dir == 'asc' %}&uarr;{% else %}&darr;{% endif %}{% endif %}</a> |
+<a href="?sort=email&dir={{ direction }}&page={{page}}"class="btn btn-outline-secondary">Email {% if request.GET.sort == 'email' %}{% if request.GET.dir == 'asc' %}&uarr;{% else %}&darr;{% endif %}{% endif %}</a> |
+<a href="?sort=date&dir={{ direction }}&page={{page}}"class="btn btn-outline-secondary">Date {% if request.GET.sort == 'date' %}{% if request.GET.dir == 'asc' %}&uarr;{% else %}&darr;{% endif %}{% endif %}</a>

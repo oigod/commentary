@@ -3,17 +3,78 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Comments</h1>
+  <h1 class="text-center">Comments</h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <p>
+        Sort by:
+          {% with request.GET.dir as direction %}
+          {% if not direction %}
+            {% with 'asc' as direction %}
+              {% include 'commentary_app/ordering_list.html' with direction=direction page=request.GET.page|default:'1' %}
+            {% endwith %}
+          {% else %}
+            {% if direction == 'asc' %}
+              {% with 'desc' as direction %}
+                    {% include 'commentary_app/ordering_list.html' with direction=direction page=request.GET.page|default:'1' %}
+              {% endwith %}
+            {% else %}
+              {% with 'asc' as direction %}
+                    {% include 'commentary_app/ordering_list.html' with direction=direction page=request.GET.page|default:'1' %}
+              {% endwith %}
+            {% endif %}
+          {% endif %}
+          {% endwith %}
+      </p>
 
+    </div>
+    <div class="col-sm-6 text-end">
+      <a href="{% url 'commentary_app:create_comment'%}" class="btn btn-primary" >
+        Write comment
+      </a>
+    </div>
+  </div>
+  <hr>
   {% if comments %}
-    <ul>
+    <div class="row flex-column align-items-center">
       {% for comment in comments %}
-        <li>
-          <p><strong>{{ comment.username }}</strong> - {{ comment.created_at }}</p>
-          <p>{{ comment.text }}</p>
-        </li>
+        {% if not comment.parent_comment %}
+              <div class="col-sm-6">
+                <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">{{ comment.username }} {{ comment.created_at }}</h5>
+                  <div class="card-text">{% autoescape off %}{{ comment.text }}{% endautoescape %}</div>
+                  {% if comment.image %}
+                  <a href="{{comment.image.url}}" data-lightbox="image-{{comment.id}}">
+                  <img src="{{comment.image.url}}" alt="" style="max-width: 320px">
+
+                  </a>
+                  {% endif %}
+                  {% if comment.file %}
+                  <a href="{{comment.file.url}}" target="_blank">
+                    File
+                  </a>
+                  {% endif %}
+                  <a href="{% url 'commentary_app:create_reply_comment' pk=comment.id %}">Reply</a>
+                  <hr>
+                  <div style="padding-left: 30px">
+                    {% with comment.replies.all as replies %}
+                    {% if replies %}
+                        {% for reply in replies %}
+                          {% include 'commentary_app/comment_reply.html' with reply=reply %}
+
+                        {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                  </div>
+                </div>
+              </div>
+
+              </div>
+
+        {% endif %}
       {% endfor %}
-    </ul>
+    </div>
   {% else %}
     <p>No comments yet.</p>
   {% endif %}

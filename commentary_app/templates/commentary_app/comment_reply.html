@@ -1,0 +1,38 @@
+<div>
+
+  <p><strong>{{ reply.username }}</strong> - {{ reply.created_at }}</p>
+  <div class="row">
+
+    <div class="col-sm-10">
+       <div>Reply to {{reply.parent_comment.username}}, {% autoescape off %}{{ reply.text }}{% endautoescape %}</div>
+      {% if reply.image %}
+        <a href="{{reply.image.url}}"  data-lightbox="image-{{reply.id}}">
+        <img src="{{reply.image.url}}" alt="" style="max-width: 320px">
+        </a>
+      {% endif %}
+      {% if reply.file %}
+        <a href="{{reply.file.url}}" target="_blank">
+          File
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="col-sm-2">
+      <a href="{% url 'commentary_app:create_reply_comment' pk=reply.id %}">Reply</a>
+    </div>
+
+  </div>
+
+
+    {% with reply.replies.all as subreplies %}
+      {% if subreplies %}
+
+          {% for subreply in subreplies %}
+            {% include 'commentary_app/comment_reply.html' with reply=subreply %}
+
+          {% endfor %}
+
+      {% endif %}
+    {% endwith %}
+
+</div>

@@ -8,6 +8,9 @@ WORKDIR app/
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
+COPY entrypoint.py /usr/local/bin/entrypoint.py
+RUN chmod +x /usr/local/bin/entrypoint.py
+
 COPY . .
 
 RUN mkdir -p /vol/web/media
@@ -20,5 +23,6 @@ RUN adduser \
 RUN chown -R django-user:django-user /vol/
 RUN chmod -R 755 /vol/web
 
-
 USER django-user
+
+ENTRYPOINT ["python", "/usr/local/bin/entrypoint.py"]

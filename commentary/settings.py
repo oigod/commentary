@@ -34,6 +34,14 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = os.environ["DEBUG"] == "True"
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0", "comentar.life"]
+CORS_ALLOWED_ORIGINS = [
+    "https://comentar.life",
+    "http://comentar.life",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://0.0.0.0:8000",
+]
+
 
 # Application definition
 
@@ -155,10 +163,3 @@ RECAPTCHA_REQUIRED_SCORE = float(os.environ["RECAPTCHA_REQUIRED_SCORE"])
 
 TINYMCE_COMPRESSOR = False
 TINYMCE_JS_URL = "https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"
-
-CORS_ALLOWED_ORIGINS = [
-    "https://comentar.life",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://0.0.0.0:8000",
-]

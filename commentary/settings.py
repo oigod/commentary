@@ -34,14 +34,13 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = os.environ["DEBUG"] == "True"
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0", "comentar.life"]
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS =[
     "https://comentar.life",
     "http://comentar.life",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://0.0.0.0:8000",
 ]
-
 
 # Application definition
 

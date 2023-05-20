@@ -11,7 +11,7 @@
     <div class="col-sm-6">
 
         <form method="post" action="{% url 'commentary_app:create_reply_comment' pk=comment.pk  %}" enctype="multipart/form-data">
-      {% csrf_token %}
+          {% csrf_token %}
           {% for field in form %}
             <div class="form-group">
               {{ field.label_tag }}

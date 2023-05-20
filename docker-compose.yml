@@ -7,6 +7,9 @@ services:
       - "5433:5432"
     env_file:
       - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
   app:
     build:
       context: .
@@ -22,3 +25,5 @@ services:
       db:
         condition: service_started
 
+volumes:
+  postgres_data:

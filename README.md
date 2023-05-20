@@ -15,6 +15,7 @@ The simple Django project for writing commentary.
 ```shell
 git clone https://github.com/oigod/commentary.git
 cd commentary
+Create .env file in root directory and commentary_bot directory by the .env.sample. example
 docker-compose up
 ```
 
